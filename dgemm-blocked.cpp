@@ -6,22 +6,22 @@ const char* dgemm_desc = "Blocked dgemm.";
  * On exit, A and B maintain their input values. */
 void square_dgemm_blocked(int n, int block_size, double* A, double* B, double* C) 
 {
-   // the block size is b=n/Nb where Nb is the # of blocks in each row/col
-   
-   int nb = n/block_size;
-   for (int j=0; j<nb; j++){
-      for (int i=0; i<nb; i++){
+
+   for (int j=0; j<n; j+=block_size){
+      for (int i=0; i<n; i+=block_size){
          //copy to local
-         std::vector<double> buf(6 * n * n);
-         double * Clocal = buf.data() + nb * nb;
-         memcpy((void *)Clocal, (const void *)C, sizeof(double)*nb*nb);
-         for(int k=0; k<nb; k++){
-            // C[i,j] += A[i,k] * B[k,j]
+         // std::vector<double> buf(6 * n * n);
+         // double * Clocal = buf.data() + block_size * block_size;
+         double * Clocal = new double[block_size];
+         memcpy((void *)Clocal, (const void *)C, sizeof(double)*block_size*block_size);
+         for(int k=0; k<n; k+=block_size){
             // C[i*nb+j] += A[i*nb+k] * B[k*nb+j];
-            double * Alocal = Clocal + nb * nb;
-            double * Blocal = Alocal + nb * nb;
-            memcpy((void *)Alocal, (const void *)A, sizeof(double)*nb*nb);
-            memcpy((void *)Blocal, (const void *)B, sizeof(double)*nb*nb);
+            // double * Alocal = Clocal + block_size * block_size;
+            // double * Blocal = Alocal + block_size * block_size;
+            double * Alocal = new double[block_size];
+            double * Blocal = new double[block_size];
+            memcpy((void *)Alocal, (const void *)A, sizeof(double)*block_size*block_size);
+            memcpy((void *)Blocal, (const void *)B, sizeof(double)*block_size*block_size);
             for (int m=0; m<block_size; m++){
                for (int p=0; p<block_size; p++){
                   for(int l=0; l<block_size; l++){
@@ -30,7 +30,7 @@ void square_dgemm_blocked(int n, int block_size, double* A, double* B, double* C
                   }
                }
             }
-            memcpy((void *)C, (const void *)Clocal, sizeof(double)*nb*nb);
+            memcpy((void *)C, (const void *)Clocal, sizeof(double)*block_size*block_size);
          }
       }
    }
