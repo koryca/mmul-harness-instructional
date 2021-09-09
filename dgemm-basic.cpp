@@ -8,5 +8,10 @@ const char* dgemm_desc = "Basic implementation, three-loop dgemm.";
  */
 void square_dgemm(int n, double* A, double* B, double* C) 
 {
-   // insert your code here: implementation of basic matrix multiple
+   // This implementation is the triply nested loop as discussed in class
+   for (int i=0; i<n; i++){
+      for (int j=0; j<n; j++){
+         C[i*n+j] += A[i*n+j] * B[i*n+j];
+      }
+   }
 }
