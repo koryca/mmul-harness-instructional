@@ -1,3 +1,4 @@
+#include <algorithm>
 const char* dgemm_desc = "Blocked dgemm.";
 
 /* This routine performs a dgemm operation
@@ -13,15 +14,18 @@ void square_dgemm_blocked(int n, int block_size, double* A, double* B, double* C
          // std::vector<double> buf(6 * n * n);
          // double * Clocal = buf.data() + block_size * block_size;
          double * Clocal = new double[block_size];
-         memcpy((void *)Clocal, (const void *)C, sizeof(double)*block_size*block_size);
+         std::copy(C, C + block_size, Clocal);
+         // memcpy((void *)Clocal, (const void *)C, sizeof(double)*block_size*block_size);
          for(int k=0; k<n; k+=block_size){
             // C[i*nb+j] += A[i*nb+k] * B[k*nb+j];
             // double * Alocal = Clocal + block_size * block_size;
             // double * Blocal = Alocal + block_size * block_size;
             double * Alocal = new double[block_size];
             double * Blocal = new double[block_size];
-            memcpy((void *)Alocal, (const void *)A, sizeof(double)*block_size*block_size);
-            memcpy((void *)Blocal, (const void *)B, sizeof(double)*block_size*block_size);
+            std::copy(A, A + block_size, Alocal);
+            std::copy(B, B + block_size, Blocal);
+            // memcpy((void *)Alocal, (const void *)A, sizeof(double)*block_size*block_size);
+            // memcpy((void *)Blocal, (const void *)B, sizeof(double)*block_size*block_size);
             for (int m=0; m<block_size; m++){
                for (int p=0; p<block_size; p++){
                   for(int l=0; l<block_size; l++){
