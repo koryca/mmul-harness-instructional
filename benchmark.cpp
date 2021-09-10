@@ -32,7 +32,8 @@ void fill(double* p, int n) {
     static std::default_random_engine gen(rd());
     static std::uniform_real_distribution<> dis(-1.0, 1.0);
     for (int i = 0; i < n; ++i)
-        p[i] = 2 * dis(gen) - 1;
+        // p[i] = 2 * dis(gen) - 1;
+        p[i] = 0.0;
 }
 
 bool check_accuracy(double *A, double *Anot, int nvalues)
@@ -101,10 +102,11 @@ std::chrono::time_point<std::chrono::high_resolution_clock> start_time = std::ch
            // insert timer code here
 std::chrono::time_point<std::chrono::high_resolution_clock> end_time = std::chrono::high_resolution_clock::now();
 std::chrono::duration<double> elapsed = end_time - start_time;
-std::cout << " Elapsed time is : " << elapsed.count() << " " << std::endl;
 
 #ifdef BLOCKED
 std::cout << " Elapsed time for block size " << b << " is : " << elapsed.count() << " " << std::endl;
+#else
+std::cout << " Elapsed time is : " << elapsed.count() << " " << std::endl;
 #endif
 
            reference_dgemm(n, 1.0 , Acopy, Bcopy, Ccopy);
