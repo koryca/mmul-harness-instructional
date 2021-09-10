@@ -13,13 +13,12 @@ void square_dgemm_blocked(int n, int block_size, double* A, double* B, double* C
    for (int i=0; i<n; i+=block_size){
       for (int j=0; j<n; j+=block_size){
          //copy to local
-         std::vector<double> buf(6 * block_size * block_size);
+         std::vector<double> buf(3 * block_size * block_size);
          double * Clocal = buf.data() + block_size * block_size;
          // double Clocal[1024];
          // std::copy(C, C + block_size, Clocal);
          memcpy((void *)Clocal, (const void *)C, sizeof(double)*block_size*block_size);
          for(int k=0; k<n; k+=block_size){
-            // C[i*nb+j] += A[i*nb+k] * B[k*nb+j];
             double * Alocal = Clocal + block_size * block_size;
             double * Blocal = Alocal + block_size * block_size;
             // long double * Alocal = new long double[block_size];
@@ -30,7 +29,7 @@ void square_dgemm_blocked(int n, int block_size, double* A, double* B, double* C
             memcpy((void *)Blocal, (const void *)B, sizeof(double)*block_size*block_size);
             for (int p=i; p<i+block_size; p++){
                for (int q=j; q<j+block_size; q++){
-                  for(int m=0; m<block_size; m++){
+                  for(int m=k; m<k+block_size; m++){
                      // C[i,j] += A[i,k] * B[k,j]
                      Clocal[p+q*block_size] += Alocal[p+m*block_size] * Blocal[m+q*block_size];
                   }
