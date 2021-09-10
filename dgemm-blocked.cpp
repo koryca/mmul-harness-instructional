@@ -13,23 +13,23 @@ void square_dgemm_blocked(int n, int block_size, double* A, double* B, double* C
    double * Alocal = Clocal + n * n;
    double * Blocal = Alocal + n * n;
 
-   for (int p=0; p<n; p+=block_size){
-      for (int q=0; q<n; q+=block_size){
+   for (int i=0; i<n; i+=block_size){
+      for (int j=0; j<n; j+=block_size){
          //copy to local
          memcpy((void *)Clocal, (const void *)C, sizeof(double)*block_size*block_size);
-         // for(int k=0; k<n; k+=block_size){
+         for(int k=0; k<n; k+=block_size){
             memcpy((void *)Alocal, (const void *)A, sizeof(double)*block_size*block_size);
             memcpy((void *)Blocal, (const void *)B, sizeof(double)*block_size*block_size);
-            for (int i=0; i<n; i++){
-               for (int j=p; j<p+block_size; j++){
-                  for(int k=q; k<q+block_size; k++){
+            for (int p=i; p<i+block_size; p++){
+               for (int q=j; q<j+block_size; q++){
+                  for(int m=k; m<k+block_size; m++){
                      // C[i,j] += A[i,k] * B[k,j]
-                     Clocal[i+j*block_size] += Alocal[i+k*block_size] * Blocal[k+j*block_size];
+                      Clocal[i+j*block_size] += Alocal[i+k*block_size] * Blocal[k+j*block_size];
                   }
                }
             }
             memcpy((void *)C, (const void *)Clocal, sizeof(double)*block_size*block_size);
-         // }
+         }
       }
    }
 }
