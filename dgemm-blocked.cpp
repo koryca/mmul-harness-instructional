@@ -14,7 +14,7 @@ void square_dgemm_blocked(int n, int block_size, double* A, double* B, double* C
    double * Alocal = Clocal + n * n;
    double * Blocal = Alocal + n * n;
    
-   int nb = n%block_size;
+   int nb = n/block_size;
    for (int i=0; i<nb; i++){
       for (int j=0; j<nb; j++){
          //copy to local
