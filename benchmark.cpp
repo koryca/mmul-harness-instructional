@@ -103,6 +103,10 @@ std::chrono::time_point<std::chrono::high_resolution_clock> end_time = std::chro
 std::chrono::duration<double> elapsed = end_time - start_time;
 std::cout << " Elapsed time is : " << elapsed.count() << " " << std::endl;
 
+#ifdef BLOCKED
+std::cout << " Elapsed time for block size " << block_sizes << " is : " << elapsed.count() << " " << std::endl;
+#endif
+
            reference_dgemm(n, 1.0 , Acopy, Bcopy, Ccopy);
 
            // compare your C with that computed by BLAS
