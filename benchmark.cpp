@@ -114,7 +114,7 @@ std::cout << " Elapsed time is : " << elapsed.count() << " " << std::endl;
 
            // compare your C with that computed by BLAS
            if (check_accuracy(Ccopy, C, n*n) == false){
-             std::cout << "A: " << *A << " Acopy: " << *Acopy << " B: " << *B << " Bcopy: " << *Bcopy << std::endl;
+            //  std::cout << "A: " << *A << " Acopy: " << *Acopy << " B: " << *B << " Bcopy: " << *Bcopy << std::endl;
              printf(" Error: your answer is not the same as that computed by BLAS. \n");
            }
              
