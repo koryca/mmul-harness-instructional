@@ -8,10 +8,11 @@ const char* dgemm_desc = "Blocked dgemm.";
  * On exit, A and B maintain their input values. */
 void square_dgemm_blocked(int n, int block_size, double* A, double* B, double* C) 
 {
-   std::vector<double> buf(3 * n * n);
+   std::vector<double> buf(4 * n * n);
    double * Clocal = buf.data() + 0;
    double * Alocal = Clocal + n * n;
    double * Blocal = Alocal + n * n;
+   double * temp = Blocal + n * n;
 
    for (int i=0; i<n; i+=block_size){
       for (int j=0; j<n; j+=block_size){
@@ -21,15 +22,12 @@ void square_dgemm_blocked(int n, int block_size, double* A, double* B, double* C
             memcpy((void *)Alocal, (const void *)A, sizeof(double)*block_size*block_size);
             memcpy((void *)Blocal, (const void *)B, sizeof(double)*block_size*block_size);
             for (int p=i; p<i+block_size; p++){
-               int sj = n * p;
                for (int q=j; q<j+block_size; q++){
-                  int mi = n * q;
-                  int ki = n * q;
-                  int kij = ki + p;
                   for(int m=k; m<k+block_size; m++){
                      // C[i,j] += A[i,k] * B[k,j]
-                     Clocal[kij] += Alocal[mi + m] * Blocal[m+sj];
+                     temp[p+q*block_size] += Alocal[p+m*block_size] * Blocal[m+q*block_size];
                   }
+                  Clocal[p+q*block_size] = temp[p+q*block_size];
                }
             }
             memcpy((void *)C, (const void *)Clocal, sizeof(double)*block_size*block_size);
