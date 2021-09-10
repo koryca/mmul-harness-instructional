@@ -28,11 +28,11 @@ void square_dgemm_blocked(int n, int block_size, double* A, double* B, double* C
             // std::copy(B, B + block_size, Blocal);
             memcpy((void *)Alocal, (const void *)A, sizeof(double)*block_size*block_size);
             memcpy((void *)Blocal, (const void *)B, sizeof(double)*block_size*block_size);
-            for (int m=0; m<block_size; m++){
-               for (int p=0; p<block_size; p++){
-                  for(int l=0; l<block_size; l++){
+            for (int p=0; p<block_size; p++){
+               for (int q=0; q<block_size; q++){
+                  for(int m=0; m<block_size; m++){
                      // C[i,j] += A[i,k] * B[k,j]
-                     Clocal[p+m*block_size] += Alocal[p+l*block_size] * Blocal[l+m*block_size];
+                     Clocal[p+q*block_size] += Alocal[p+m*block_size] * Blocal[m+q*block_size];
                   }
                }
             }
