@@ -1,4 +1,3 @@
-#include <math>
 #include <vector>
 #include <cstring>
 const char* dgemm_desc = "Blocked dgemm.";
@@ -23,7 +22,7 @@ void square_dgemm_blocked(int n, int block_size, double* A, double* B, double* C
             memcpy((void *)Blocal, (const void *)B, sizeof(double)*block_size*block_size);
             for (int i=0; i<n; i++){
                for (int j=p; j<p+block_size; j++){
-                  for(int k=0; k<q+block_size; k++){
+                  for(int k=q; k<q+block_size; k++){
                      // C[i,j] += A[i,k] * B[k,j]
                      Clocal[i+j*block_size] += Alocal[i+k*block_size] * Blocal[k+j*block_size];
                   }
