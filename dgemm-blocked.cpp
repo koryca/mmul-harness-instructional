@@ -32,7 +32,7 @@ void square_dgemm_blocked(int n, int block_size, double* A, double* B, double* C
                for (int p=0; p<block_size; p++){
                   for(int l=0; l<block_size; l++){
                      // C[i,j] += A[i,k] * B[k,j]
-                     Clocal[p*block_size+m] += Alocal[p*block_size+l] * Blocal[l*block_size+m];
+                     Clocal[p+m*block_size] += Alocal[p+l*block_size] * Blocal[l+m*block_size];
                   }
                }
             }
