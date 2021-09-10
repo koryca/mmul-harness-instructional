@@ -17,6 +17,5 @@ void square_dgemm(int n, double* A, double* B, double* C)
             C[i + j * n] += A[i + k * n] * B[k + j * n];
          }
       }
-      std::cout << *A << " " << *B << " " << *C << std::endl;
    }
 }
