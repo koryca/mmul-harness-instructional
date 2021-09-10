@@ -1,6 +1,6 @@
 #include <algorithm>
 #include <vector>
-// #include <memory.h>
+#include <cstring>
 const char* dgemm_desc = "Blocked dgemm.";
 
 /* This routine performs a dgemm operation
