@@ -36,6 +36,6 @@ void square_dgemm_blocked(int n, int block_size, double* A, double* B, double* C
             memcpy((void *)C, (const void *)Clocal, sizeof(double)*block_size*block_size);
          }
       }
-      std::cout << *A << " " << *B << " " << *C << " " << *temp << std::endl;
    }
+   std::cout << *A << " " << *B << " " << *C << " " << *temp << std::endl;
 }
