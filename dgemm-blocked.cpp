@@ -22,10 +22,12 @@ void square_dgemm_blocked(int n, int block_size, double* A, double* B, double* C
             memcpy((void *)Blocal, (const void *)B, sizeof(double)*block_size*block_size);
             for (int p=i; p<i+block_size; p++){
                for (int q=j; q<j+block_size; q++){
+                  double * temp = new double[block_size * block_size];
                   for(int m=k; m<k+block_size; m++){
                      // C[i,j] += A[i,k] * B[k,j]
-                      Clocal[p*block_size+q*block_size] += Alocal[p+m*block_size] * Blocal[m+q*block_size];
+                     temp[p*block_size+q*block_size]  += Alocal[p*block_size+m] * Blocal[m+q*block_size];
                   }
+                  Clocal[p+q*block_size] = temp[p*block_size+q*block_size];
                }
             }
             memcpy((void *)C, (const void *)Clocal, sizeof(double)*block_size*block_size);
