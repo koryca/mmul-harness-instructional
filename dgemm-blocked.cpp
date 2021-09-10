@@ -26,13 +26,13 @@ void square_dgemm_blocked(int n, int block_size, double* A, double* B, double* C
                for (int jj=j; jj<j+block_size; jj++){
                   for(int kk=k; kk<k+block_size; kk++){
                      // C[i,j] += A[i,k] * B[k,j]
-                     std::cout << "before: " << Clocal[ii + jj] << " " << Alocal[ii + kk] << " " << Blocal[kk + jj] << std::endl;
                      Clocal[ii + jj] += Alocal[ii + kk] * Blocal[kk + jj];
-                     std::cout << "After: " << Clocal[ii + jj] << " " << Alocal[ii + kk] << " " << Blocal[kk + jj] << std::endl;
+                     // std::cout << "After: " << Clocal[ii + jj] << " " << Alocal[ii + kk] << " " << Blocal[kk + jj] << std::endl;
                   }
                }
             }
             memcpy((void *)C, (const void *)Clocal, sizeof(double)*block_size*block_size);
+            std::cout << *A << " " << *B << " " << *C << std::endl;
          }
       }
       // std::cout << *A << " " << *B << " " << *C << std::endl;
