@@ -12,7 +12,7 @@ void square_dgemm_blocked(int n, int block_size, double* A, double* B, double* C
    double * Clocal = buf.data() + 0;
    double * Alocal = Clocal + n * n;
    double * Blocal = Alocal + n * n;
-   double * temp = Blocal + n * n;
+   // double * temp = Blocal + n * n;
 
    for (int i=0; i<n; i+=block_size){
       for (int j=0; j<n; j+=block_size){
@@ -23,10 +23,10 @@ void square_dgemm_blocked(int n, int block_size, double* A, double* B, double* C
             memcpy((void *)Blocal, (const void *)B, sizeof(double)*block_size*block_size);
             for (int p=i; p<i+block_size; p++){
                for (int q=j; q<j+block_size; q++){
-                  // for(int m=k; m<k+block_size; m++){
+                  for(int m=k; m<k+block_size; m++){
                      // C[i,j] += A[i,k] * B[k,j]
-                     Clocal[p+q*block_size] += Alocal[p+k*block_size] * Blocal[k+q*block_size];
-                  // }
+                     Clocal[p+q*block_size] += Alocal[p+m*block_size] * Blocal[m+q*block_size];
+                  }
                }
             }
             memcpy((void *)C, (const void *)Clocal, sizeof(double)*block_size*block_size);
