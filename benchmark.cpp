@@ -32,8 +32,8 @@ void fill(double* p, int n) {
     static std::default_random_engine gen(rd());
     static std::uniform_real_distribution<> dis(-1.0, 1.0);
     for (int i = 0; i < n; ++i)
-        // p[i] = 2 * dis(gen) - 1;
-        p[i] = 0.0;
+        p[i] = 2 * dis(gen) - 1;
+        // p[i] = 0.0;
 }
 
 bool check_accuracy(double *A, double *Anot, int nvalues)
@@ -42,6 +42,7 @@ bool check_accuracy(double *A, double *Anot, int nvalues)
   for (size_t i = 0; i < nvalues; i++) 
   {
     if (fabsf(A[i] - Anot[i]) > eps) {
+      std::cout << "1. " << A[i] << " 2. " << Anot[i] << std::endl;
        return false;
     }
   }
