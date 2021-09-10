@@ -23,7 +23,7 @@ void square_dgemm_blocked(int n, int block_size, double* A, double* B, double* C
          for(int k=0; k<n; k+=block_size){
             memcpy((void *)Alocal, (const void *)A, sizeof(double)*block_size*block_size);
             memcpy((void *)Blocal, (const void *)B, sizeof(double)*block_size*block_size);
-            temp[i + j * n] += A[i + k * n] * B[k + j * n];
+            temp[i + j * n * block_size] += A[i + k * n * block_size] * B[k + j * n * block_size];
             for (int ii=i; ii<i+block_size; ii++){
                for (int jj=j; jj<j+block_size; jj++){
                   for(int kk=k; kk<k+block_size; kk++){
@@ -36,6 +36,6 @@ void square_dgemm_blocked(int n, int block_size, double* A, double* B, double* C
             memcpy((void *)C, (const void *)Clocal, sizeof(double)*block_size*block_size);
          }
       }
-      std::cout << *A << " " << *B << " " << *C << *temp << std::endl;
+      std::cout << *A << " " << *B << " " << *C << " " << *temp << std::endl;
    }
 }
