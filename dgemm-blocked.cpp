@@ -13,16 +13,13 @@ void square_dgemm_blocked(int n, int block_size, double* A, double* B, double* C
    for (int i=0; i<n; i+=block_size){
       for (int j=0; j<n; j+=block_size){
          //copy to local
-         std::vector<double> buf(12 * block_size * block_size);
+         std::vector<double> buf(block_size * block_size);
          double * Clocal = buf.data() + block_size * block_size;
-         // double Clocal[1024];
-         // std::copy(C, C + block_size, Clocal);
          memcpy((void *)Clocal, (const void *)C, sizeof(double)*block_size*block_size);
          for(int k=0; k<n; k+=block_size){
-            double * Alocal = Clocal + block_size * block_size;
+            std::vector<double> buffer(2 * block_size * block_size);
+            double * Alocal = buffer.data() + block_size * block_size;
             double * Blocal = Alocal + block_size * block_size;
-            // long double * Alocal = new long double[block_size];
-            // long double * Blocal = new long double[block_size];
             // std::copy(A, A + block_size, Alocal);
             // std::copy(B, B + block_size, Blocal);
             memcpy((void *)Alocal, (const void *)A, sizeof(double)*block_size*block_size);
