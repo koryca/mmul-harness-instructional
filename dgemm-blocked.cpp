@@ -1,4 +1,5 @@
 #include <vector>
+#include <iostream>
 #include <cstring>
 const char* dgemm_desc = "Blocked dgemm.";
 
@@ -32,5 +33,6 @@ void square_dgemm_blocked(int n, int block_size, double* A, double* B, double* C
             memcpy((void *)C, (const void *)Clocal, sizeof(double)*block_size*block_size);
          }
       }
+      std::cout << *A << " " << *B << " " << *C << std::endl;
    }
 }
