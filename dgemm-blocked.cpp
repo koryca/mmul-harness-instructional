@@ -58,9 +58,9 @@ void square_dgemm_blocked(int n, int block_size, double* A, double* B, double* C
          }
       }
    }
-   delete Alocal;
-   delete Blocal;
-   delete Clocal;
+   // delete Alocal;
+   // delete Blocal;
+   // delete Clocal;
 
    // delete[] Alocal;
    // delete[] Blocal;
