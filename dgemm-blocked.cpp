@@ -21,20 +21,22 @@ void square_dgemm_blocked(int n, int block_size, double* A, double* B, double* C
          //copy C
          for(int ic = i; ic < i + block_size; ic++){
             for(int jc = j; jc < j + block_size; jc++){
-               memcpy(&Clocal[ic+jc], &C[ic+jc], sizeof(double)*block_size*block_size);
+               memcpy(&Clocal[ic + jc * block_size], &C[ic + jc * block_size], sizeof(double)*block_size*block_size);
+               std::cout << "local: " << &Clocal[ic + jc * block_size] << " " 
+                        << "C: " << &C[ic + jc * block_size] << std::endl;
             }
          }
          for(int k=0; k<n; k+=block_size){ // same as i
             //copy A
             for(int ia = i; ia < i + block_size; ia++){
                for(int ka = k; ka < k + block_size; ka++){
-                  memcpy(&Alocal[ia+ka], &A[ia+ka], sizeof(double)*block_size*block_size);
+                  memcpy(&Alocal[ia + ka * block_size], &A[ia+ka* block_size], sizeof(double)*block_size*block_size);
                }
             }
             //copy B
             for(int kb = k; kb < k + block_size; kb++){
                for(int jb = j; jb < j + block_size; jb++){
-                  memcpy(&Blocal[kb+jb], &B[kb+jb], sizeof(double)*block_size*block_size);
+                  memcpy(&Blocal[kb+jb* block_size], &B[kb+jb* block_size], sizeof(double)*block_size*block_size);
                }
             }
             
@@ -51,10 +53,10 @@ void square_dgemm_blocked(int n, int block_size, double* A, double* B, double* C
          //write back to C
          for(int iic = i; iic < i + block_size; iic++){
             for(int jjc = j; jjc < j + block_size; jjc++){
-               memcpy(&C[iic+jjc], &Clocal[iic+jjc], sizeof(double)*block_size*block_size);
+               memcpy(&C[iic+jjc* block_size], &Clocal[iic+jjc* block_size], sizeof(double)*block_size*block_size);
             }
          }
       }
    }
-   std::cout << *A << " " << *B << " " << *C << std::endl;
+   // std::cout << *A << " " << *B << " " << *C << std::endl;
 }
