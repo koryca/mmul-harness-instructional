@@ -64,6 +64,12 @@ void square_dgemm_blocked(int n, int block_size, double* A, double* B, double* C
             for (int ii=i; ii<i+block_size; ii++){
                for (int jj=j; jj<j+block_size; jj++){ //same as ii
                   for(int kk=k; kk<k+block_size; kk++){ //same as kk
+                     for(int cci = i; cci< i + block_size; cci++){
+                        for(int ccj = j; ccj< j + block_size; ccj++){
+                           std::cout << "Clocal[" << ccj <<"][" << cci << "] = " << Clocal[cci+ccj*n] 
+                           << " col index: " << cci+ccj*n << std::endl;
+                        }
+                     }
                       // reference from basic : C[i + j * n] += A[i + k * n] * B[k + j * n];
                       std::cout << "input: C[" << jj << "][" << ii <<"]: " << Clocal[ii + jj * n] 
                         << " += B[" << kk << "][" << ii <<"]: " << Blocal[ii + kk * n] 
