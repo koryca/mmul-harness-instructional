@@ -10,27 +10,20 @@ const char* dgemm_desc = "Blocked dgemm.";
 
 void square_dgemm_blocked(int n, int block_size, double* A, double* B, double* C) 
 {
-   std::vector<double> buffer(6 * n * n);
+   std::vector<double> buffer(4 * n * n);
    double * Alocal = buffer.data() + 0;
    double * Blocal = Alocal + n * n;
    double * Clocal = Blocal + n * n;
-   
-   // for (int i = 0; i < n; ++i){
-   //    Alocal[i] = 0.0;
-   //    Blocal[i] = 0.0;
-   //    Clocal[i] = 0.0;
-   // }
         
    for (int i=0; i<n; i+=block_size){
-      for (int j=0; j<n; j+=block_size){ //same as i
-         
+      for (int j=0; j<n; j+=block_size){ 
          //copy C
          for(int ic = i; ic < i + block_size; ic++){
             for(int jc = j; jc < j + block_size; jc++){
                memcpy(&Clocal[ic + jc * n], &C[ic + jc * n], sizeof(double)*block_size*block_size);
             }
          }
-         for(int k=0; k<n; k+=block_size){ // same as i
+         for(int k=0; k<n; k+=block_size){ 
             //copy A
             for(int ia = i; ia < i + block_size; ia++){
                for(int ka = k; ka < k + block_size; ka++){
