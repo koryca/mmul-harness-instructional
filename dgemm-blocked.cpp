@@ -30,7 +30,7 @@ void square_dgemm_blocked(int n, int block_size, double* A, double* B, double* C
                       << " C[" << ic << "][" << j << "]"<< std::endl;
             // }
          }
-         for(int k=0; k<n; k+=block_size){ 
+         for(int k=0; k<n; k++){ 
             //copy A
             for(int ia = i; ia < i + block_size; ia++){
                // for(int ka = k; ka < k + block_size; ka++){
