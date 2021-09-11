@@ -1,5 +1,4 @@
 #include <vector>
-#include <iomanip>
 #include <iostream>
 #include <cstring>
 const char* dgemm_desc = "Blocked dgemm.";
@@ -11,9 +10,9 @@ const char* dgemm_desc = "Blocked dgemm.";
 void square_dgemm_blocked(int n, int block_size, double* A, double* B, double* C) 
 {
    std::vector<double> buffer(3 * n * n);
-   double * Clocal = buffer.data() + 0;
-   double * Alocal = Clocal + n * n;
+   double * Alocal = buffer.data() + 0;
    double * Blocal = Alocal + n * n;
+   double * Clocal = Blocal + n * n;
    
    // test with block_size 2 BxB=2x2 MM size 64x64
    // i from 0 to n, increment by block_size, so n/block_size = 64/2 = 32 times of iteration
