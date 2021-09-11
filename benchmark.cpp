@@ -32,8 +32,8 @@ void fill(double* p, int n) {
     static std::default_random_engine gen(rd());
     static std::uniform_real_distribution<> dis(-1.0, 1.0);
     for (int i = 0; i < n; ++i)
-        p[i] = 2 * dis(gen) - 1;
-        // p[i] = 0.0;
+        // p[i] = 2 * dis(gen) - 1;
+        p[i] = (double)i;
 }
 
 bool check_accuracy(double *A, double *Anot, int nvalues)

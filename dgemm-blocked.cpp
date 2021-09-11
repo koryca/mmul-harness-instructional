@@ -18,10 +18,26 @@ void square_dgemm_blocked(int n, int block_size, double* A, double* B, double* C
    // i from 0 to n, increment by block_size, so n/block_size = 64/2 = 32 times of iteration
    for (int i=0; i<n; i+=block_size){
       for (int j=0; j<n; j+=block_size){ //same as i
-         // memcpy((void *)Clocal, (const void *)C, sizeof(double)*block_size*block_size);
+         //copy C
+         for(int ic = i; ic < i + block_size; ic++){
+            for(int jc = j; jc < j + block_size; jc++){
+               memcpy(&Clocal[ic+jc], &C[ic+jc], sizeof(double)*block_size*block_size);
+            }
+         }
          for(int k=0; k<n; k+=block_size){ // same as i
-            // memcpy((void *)Alocal, (const void *)A, sizeof(double)*block_size*block_size);
-            // memcpy((void *)Blocal, (const void *)B, sizeof(double)*block_size*block_size);
+            //copy A
+            for(int ia = i; ia < i + block_size; ia++){
+               for(int ka = k; ka < k + block_size; ka++){
+                  memcpy(&Alocal[ia+ka], &A[ia+ka], sizeof(double)*block_size*block_size);
+               }
+            }
+            //copy B
+            for(int kb = k; kb < k + block_size; kb++){
+               for(int jb = j; jb < j + block_size; jb++){
+                  memcpy(&Blocal[kb+jb], &B[kb+jb], sizeof(double)*block_size*block_size);
+               }
+            }
+            
             // init ii=i, ii from i to i+block_size ->block_size times of iteration
             for (int ii=i; ii<i+block_size; ii++){
                for (int jj=j; jj<j+block_size; jj++){ //same as ii
@@ -31,7 +47,12 @@ void square_dgemm_blocked(int n, int block_size, double* A, double* B, double* C
                   }
                }
             }
-            // memcpy((void *)C, (const void *)Clocal, sizeof(double)*block_size*block_size);
+         }
+         //write back to C
+         for(int iic = i; iic < i + block_size; iic++){
+            for(int jjc = j; jjc < j + block_size; jjc++){
+               memcpy(&C[iic+jjc], &Clocal[iic+jjc], sizeof(double)*block_size*block_size);
+            }
          }
       }
    }
