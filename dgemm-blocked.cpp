@@ -19,13 +19,18 @@ void square_dgemm_blocked(int n, int block_size, double* A, double* B, double* C
    for (int i=0; i<n; i+=block_size){
       for (int j=0; j<n; j+=block_size){ //same as i
          //copy C
+         for(int ci = 0; ci<n; ci++){
+            for(int cj = 0; cj<n; cj++){
+               std::cout << "C[" << ci <<"][" << cj << "] = " << C[ci+cj] << std::endl;
+            }
+         }
          for(int ic = i; ic < i + block_size; ic++){
             memcpy(&Clocal[ic], &C[ic], sizeof(double)*block_size);
             for(int jc = j; jc < j + block_size; jc++){
                memcpy(&Clocal[ic + jc * block_size], &C[ic + jc * block_size], sizeof(double)*block_size);
                std::cout << "local: " << Clocal[ic + jc * block_size] << " " 
                         << "C: " << C[ic + jc * block_size] 
-                        << "i[ " << ic << "], j[" << jc << "]" << std::endl;
+                        << "i[" << ic << "], j[" << jc << "]" << std::endl;
             }
          }
          for(int k=0; k<n; k+=block_size){ // same as i
