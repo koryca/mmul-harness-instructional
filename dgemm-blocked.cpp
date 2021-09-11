@@ -28,9 +28,9 @@ void square_dgemm_blocked(int n, int block_size, double* A, double* B, double* C
          //copy C
          for(int ic = i; ic < n; ic++){
             for(int jc = j; jc < n; jc++){
-               memcpy(&Clocal[ic + jc * block_size], &C[ic + jc * block_size], sizeof(double)*block_size*block_size);
-               std::cout << "local: " << Clocal[ic + jc * block_size] << " " 
-                        << "C: " << C[ic + jc * block_size] 
+               memcpy(&Clocal[ic + jc * n], &C[ic + jc * n], sizeof(double)*block_size*block_size);
+               std::cout << "local: " << Clocal[ic + jc * n] << " " 
+                        << "C: " << C[ic + jc * n] 
                         << " i[" << jc << "], j[" << ic << "]" << std::endl;
             }
          }
