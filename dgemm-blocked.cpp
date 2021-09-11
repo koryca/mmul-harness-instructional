@@ -15,9 +15,9 @@ void square_dgemm_blocked(int n, int block_size, double* A, double* B, double* C
    // double * Blocal = Alocal + n * n;
    // double * Clocal = Blocal + n * n;
         
-   double * Alocal = (double*) malloc(block_size * block_size * sizeof(double));
-   double * Blocal = (double*) malloc(block_size * block_size * sizeof(double));
-   double * Clocal = (double*) malloc(block_size * block_size * sizeof(double));
+   double * Alocal = (double*) malloc(n * n * sizeof(double));
+   double * Blocal = (double*) malloc(n * n * sizeof(double));
+   double * Clocal = (double*) malloc(n * n * sizeof(double));
 
    for (int i=0; i<n; i+=block_size){
       for (int j=0; j<n; j+=block_size){ 
@@ -53,7 +53,7 @@ void square_dgemm_blocked(int n, int block_size, double* A, double* B, double* C
                   for(int kk=k; kk<k+block_size; kk++){ 
                      temp += Alocal[ii + kk * block_size] * Blocal[kk + jj * block_size];
                      std::cout << "A[" << ii << "][" << kk << "] " << Alocal[ii + kk * block_size] 
-                              << "B[" << kk << "][" << jj << "] " << Blocal[kk + jj * block_size]
+                              << " B[" << kk << "][" << jj << "] " << Blocal[kk + jj * block_size]
                               << " ->" << temp << " += " << Alocal[ii + kk * block_size] 
                                                << " * " << Blocal[kk + jj * block_size] << std::endl;
                   }
