@@ -44,12 +44,12 @@ void square_dgemm_blocked(int n, int block_size, double* A, double* B, double* C
                   //       << " i[" << ka << "], j[" << ia << "]" << std::endl;
                }
             }
-            for(int cai = i; cai< i + block_size; cai++){
-               for(int caj = k; caj< k + block_size; caj++){
-                  std::cout << "A[" << caj <<"][" << cai << "] = " << A[cai+caj*n] 
-                  << " col index: " << cai+caj*n << std::endl;
-               }
-            }
+            // for(int cai = i; cai< i + block_size; cai++){
+            //    for(int caj = k; caj< k + block_size; caj++){
+            //       std::cout << "A[" << caj <<"][" << cai << "] = " << A[cai+caj*n] 
+            //       << " col index: " << cai+caj*n << std::endl;
+            //    }
+            // }
             //copy B(in fact A)
             for(int kb = k; kb < k + block_size; kb++){
                for(int jb = j; jb < j + block_size; jb++){
@@ -65,13 +65,13 @@ void square_dgemm_blocked(int n, int block_size, double* A, double* B, double* C
                for (int jj=j; jj<j+block_size; jj++){ //same as ii
                   for(int kk=k; kk<k+block_size; kk++){ //same as kk
                       // reference from basic : C[i + j * n] += A[i + k * n] * B[k + j * n];
-                      std::cout << "input: C[" << jj << "][" << ii <<"]: " << Clocal[ii + jj * block_size] 
-                        << " += A[" << jj << "][" << kk <<"]: " << Alocal[ii + kk * block_size] 
-                        << " * B[" << kk << "][" << ii <<"]: " << Blocal[ii + jj * block_size] << std::endl;
-                     Clocal[ii + jj * n] += Blocal[ii + kk * block_size] * Alocal[kk + jj * block_size];
-                     std::cout << "output: C[" << jj << "][" << ii <<"]: " << Clocal[ii + jj * block_size] 
-                        << " += A[" << jj << "][" << kk <<"]: " << Alocal[ii + kk * block_size] 
-                        << " * B[" << kk << "][" << ii <<"]: " << Blocal[ii + jj * block_size] << std::endl;
+                      std::cout << "input: C[" << jj << "][" << ii <<"]: " << Clocal[ii + jj * n] 
+                        << " += A[" << jj << "][" << kk <<"]: " << Alocal[ii + kk * n] 
+                        << " * B[" << kk << "][" << ii <<"]: " << Blocal[kk + jj * n] << std::endl;
+                     Clocal[ii + jj * n] += Alocal[ii + kk * n] * Blocal[kk + jj * n];
+                     std::cout << "output: C[" << jj << "][" << ii <<"]: " << Clocal[ii + jj * n] 
+                        << " += A[" << jj << "][" << kk <<"]: " << Alocal[ii + kk * n] 
+                        << " * B[" << kk << "][" << ii <<"]: " << Blocal[kk + jj * n] << std::endl;
                   }
                }
             }
