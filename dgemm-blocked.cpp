@@ -39,27 +39,27 @@ void square_dgemm_blocked(int n, int block_size, double* A, double* B, double* C
             for(int ia = i; ia < i + block_size; ia++){
                for(int ka = k; ka < k + block_size; ka++){
                   memcpy(&Alocal[ia + ka * n], &A[ia + ka * n], sizeof(double)*block_size*block_size);
-                  std::cout << "local: " << Alocal[ia + ka * n] << " " 
-                        << "A: " << A[ia + ka* n] 
-                        << " i[" << ka << "], j[" << ia << "]" << std::endl;
+                  // std::cout << "local: " << Alocal[ia + ka * n] << " " 
+                  //       << "A: " << A[ia + ka* n] 
+                  //       << " i[" << ka << "], j[" << ia << "]" << std::endl;
                }
             }
-            // for(int cai = i; cai< i + block_size; cai++){
-            //    for(int caj = k; caj< k + block_size; caj++){
-            //       std::cout << "A[" << caj <<"][" << cai << "] = " << A[cai+caj*n] 
-            //       << " col index: " << cai+caj*n << std::endl;
-            //    }
-            // }
+            for(int cai = i; cai< i + block_size; cai++){
+               for(int caj = k; caj< k + block_size; caj++){
+                  std::cout << "Alocal[" << caj <<"][" << cai << "] = " << Alocal[cai+caj*n] 
+                  << " col index: " << cai+caj*n << std::endl;
+               }
+            }
             //copy B(in fact A)
             for(int kb = k; kb < k + block_size; kb++){
                for(int jb = j; jb < j + block_size; jb++){
                   memcpy(&Blocal[kb + jb * n], &B[kb + jb* n], sizeof(double)*block_size*block_size);
-                  std::cout << "local: " << Blocal[kb+jb* n] << " " 
-                        << "B: " << B[kb + jb* n] 
-                        << " i[" << jb << "], j[" << kb << "]"<< std::endl;
+                  // std::cout << "local: " << Blocal[kb+jb* n] << " " 
+                  //       << "B: " << B[kb + jb* n] 
+                  //       << " i[" << jb << "], j[" << kb << "]"<< std::endl;
                }
             }
-            std::cout << "Alocal[4]: " << Alocal[4] << std::endl;
+            // std::cout << "Alocal[4]: " << Alocal[4] << std::endl;
             // init ii=i, ii from i to i+block_size ->block_size times of iteration
             for (int ii=i; ii<i+block_size; ii++){
                for (int jj=j; jj<j+block_size; jj++){ //same as ii
