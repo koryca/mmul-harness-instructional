@@ -9,7 +9,7 @@ const char* dgemm_desc = "Blocked dgemm.";
  * On exit, A and B maintain their input values. */
 void square_dgemm_blocked(int n, int block_size, double* A, double* B, double* C) 
 {
-   std::vector<double> buffer(3 * n * n);
+   std::vector<double> buffer(6 * n * n);
    double * Alocal = buffer.data() + 0;
    double * Blocal = Alocal + n * n;
    double * Clocal = Blocal + n * n;
