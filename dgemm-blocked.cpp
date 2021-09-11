@@ -34,18 +34,18 @@ void square_dgemm_blocked(int n, int block_size, double* A, double* B, double* C
             //copy A
             // for(int ia = i; ia < i + block_size; ia++){
             for(int ka = k; ka < k + block_size; ka++){
-               memcpy(&Alocal[i + ka * n], &A[i + ka * n], sizeof(double)*block_size);
-               std::cout << "Alocal at copy: " << Alocal[i + ka * n] 
-                      << " A at copy: " << A[i + ka * n] 
+               memcpy(&Alocal[i + ka * block_size], &A[i + ka * block_size], sizeof(double)*block_size);
+               std::cout << "Alocal at copy: " << Alocal[i + ka * block_size] 
+                      << " A at copy: " << A[i + ka * block_size] 
                       << " A[" << i << "][" << ka << "]" << std::endl;
                // }
             }
             //copy B
             for(int kb = k; kb < k + block_size; kb++){
                // for(int jb = j; jb < j + block_size; jb++){
-               memcpy(&Blocal[kb + j * n], &B[kb + j * n], sizeof(double)*block_size);
-               std::cout << "Blocal at copy: " << Blocal[kb + j * n] 
-                      << " B at copy: " << B[kb + j * n] 
+               memcpy(&Blocal[kb + j * block_size], &B[kb + j * block_size], sizeof(double)*block_size);
+               std::cout << "Blocal at copy: " << Blocal[kb + j * block_size] 
+                      << " B at copy: " << B[kb + j * block_size] 
                       << " B[" << kb << "][" << j << "]"<< std::endl;
                // }
             }  
