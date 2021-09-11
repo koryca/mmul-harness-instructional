@@ -50,12 +50,12 @@ void square_dgemm_blocked(int n, int block_size, double* A, double* B, double* C
                   //       << " i[" << ka << "], j[" << ia << "]" << std::endl;
                }
             }
-            // for(int cai = i; cai< i + block_size; cai++){
-            //    for(int caj = k; caj< k + block_size; caj++){
-            //       std::cout << "Alocal[" << caj <<"][" << cai << "] = " << Alocal[cai+caj*n] 
-            //       << " col index: " << cai+caj*n << std::endl;
-            //    }
-            // }
+            for(int cai = i; cai< i + block_size; cai++){
+               for(int caj = k; caj< k + block_size; caj++){
+                  std::cout << "Alocal[" << caj <<"][" << cai << "] = " << Alocal[cai+caj*n] 
+                  << " col index: " << cai+caj*n << std::endl;
+               }
+            }
             //copy B(in fact A)
             for(int kb = k; kb < k + block_size; kb++){
                for(int jb = j; jb < j + block_size; jb++){
