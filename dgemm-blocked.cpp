@@ -22,7 +22,7 @@ void square_dgemm_blocked(int n, int block_size, double* A, double* B, double* C
          for(int ci = 0; ci<n; ci++){
             for(int cj = 0; cj<n; cj++){
                std::cout << "C[" << cj <<"][" << ci << "] = " << C[ci+cj*n] 
-               << "col index: " << ci+cj*n << std::endl;
+               << " col index: " << ci+cj*n << " &C[i+j*n]: " << &C[ci+cj*n] << std::endl;
             }
          }
          //copy C
