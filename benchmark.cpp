@@ -32,8 +32,7 @@ void fill(double* p, int n) {
     static std::default_random_engine gen(rd());
     static std::uniform_real_distribution<> dis(-1.0, 1.0);
     for (int i = 0; i < n; ++i)
-        // p[i] = 2 * dis(gen) - 1;
-        p[i] = (double)i;
+        p[i] = 2 * dis(gen) - 1;
 }
 
 bool check_accuracy(double *A, double *Anot, int nvalues)
@@ -57,11 +56,11 @@ int main(int argc, char** argv)
 
     std::cout << std::fixed << std::setprecision(2);
 
-    // std::vector<int> test_sizes{64, 128, 256, 512, 1024};
-    // std::vector<int> block_sizes{2, 16, 32, 64};
+    std::vector<int> test_sizes{64, 128, 256, 512, 1024};
+    std::vector<int> block_sizes{2, 16, 32, 64};
 
-    std::vector<int> test_sizes{64};
-    std::vector<int> block_sizes{2};
+    // std::vector<int> test_sizes{64};
+    // std::vector<int> block_sizes{2};
 
     int n_problems = test_sizes.size();
 
