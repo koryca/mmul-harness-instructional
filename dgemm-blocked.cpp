@@ -59,13 +59,13 @@ void square_dgemm_blocked(int n, int block_size, double* A, double* B, double* C
                for (int jj=j; jj<j+block_size; jj++){ //same as ii
                   for(int kk=k; kk<k+block_size; kk++){ //same as kk
                       // reference from basic : C[i + j * n] += A[i + k * n] * B[k + j * n];
-                      std::cout << "input: C[" << jj << "][" << ii <<"]: " << Clocal[ii + jj * n] 
-                        << " += A[" << jj << "][" << kk <<"]: " << Alocal[ii + kk * n] 
-                        << " * B[" << kk << "][" << ii <<"]: " << Blocal[ii + jj * n] << std::endl;
-                     Clocal[ii + jj * n] += Blocal[ii + kk * n] * Alocal[kk + jj * n];
-                     std::cout << "output: C[" << jj << "][" << ii <<"]: " << Clocal[ii + jj * n] 
-                        << " += A[" << jj << "][" << kk <<"]: " << Alocal[ii + kk * n] 
-                        << " * B[" << kk << "][" << ii <<"]: " << Blocal[ii + jj * n] << std::endl;
+                      std::cout << "input: C[" << jj << "][" << ii <<"]: " << Clocal[ii + jj * block_size] 
+                        << " += A[" << jj << "][" << kk <<"]: " << Alocal[ii + kk * block_size] 
+                        << " * B[" << kk << "][" << ii <<"]: " << Blocal[ii + jj * block_size] << std::endl;
+                     Clocal[ii + jj * block_size] += Blocal[ii + kk * block_size] * Alocal[kk + jj * block_size];
+                     std::cout << "output: C[" << jj << "][" << ii <<"]: " << Clocal[ii + jj * block_size] 
+                        << " += A[" << jj << "][" << kk <<"]: " << Alocal[ii + kk * block_size] 
+                        << " * B[" << kk << "][" << ii <<"]: " << Blocal[ii + jj * block_size] << std::endl;
                   }
                }
             }
