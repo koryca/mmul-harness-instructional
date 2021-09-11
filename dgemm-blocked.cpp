@@ -50,12 +50,12 @@ void square_dgemm_blocked(int n, int block_size, double* A, double* B, double* C
                   //       << " i[" << ka << "], j[" << ia << "]" << std::endl;
                }
             }
-            for(int cai = i; cai< i + block_size; cai++){
-               for(int caj = k; caj< k + block_size; caj++){
-                  std::cout << "Alocal[" << caj <<"][" << cai << "] = " << Alocal[cai+caj*n] 
-                  << " col index: " << cai+caj*n << std::endl;
-               }
-            }
+            // for(int cai = i; cai< i + block_size; cai++){
+            //    for(int caj = k; caj< k + block_size; caj++){
+            //       std::cout << "Alocal[" << caj <<"][" << cai << "] = " << Alocal[cai+caj*n] 
+            //       << " col index: " << cai+caj*n << std::endl;
+            //    }
+            // }
             //copy B(in fact A)
             for(int kb = k; kb < k + block_size; kb++){
                for(int jb = j; jb < j + block_size; jb++){
@@ -65,12 +65,12 @@ void square_dgemm_blocked(int n, int block_size, double* A, double* B, double* C
                   //       << " i[" << jb << "], j[" << kb << "]"<< std::endl;
                }
             }
-            for(int cbi = k; cbi< k + block_size; cbi++){
-               for(int cbj = j; cbj< j + block_size; cbj++){
-                  std::cout << "Blocal[" << cbj <<"][" << cbi << "] = " << Blocal[cbi+cbj*n] 
-                  << " col index: " << cbi+cbj*n << std::endl;
-               }
-            }
+            // for(int cbi = k; cbi< k + block_size; cbi++){
+            //    for(int cbj = j; cbj< j + block_size; cbj++){
+            //       std::cout << "Blocal[" << cbj <<"][" << cbi << "] = " << Blocal[cbi+cbj*n] 
+            //       << " col index: " << cbi+cbj*n << std::endl;
+            //    }
+            // }
             // std::cout << "Alocal[4]: " << Alocal[4] << std::endl;
             // init ii=i, ii from i to i+block_size ->block_size times of iteration
             for (int ii=i; ii<i+block_size; ii++){
