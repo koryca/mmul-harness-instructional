@@ -34,12 +34,12 @@ void square_dgemm_blocked(int n, int block_size, double* A, double* B, double* C
                //          << " i[" << jc << "], j[" << ic << "]" << std::endl;
             }
          }
-         for(int cci = i; cci< i + block_size; cci++){
-            for(int ccj = j; ccj< j + block_size; ccj++){
-               std::cout << "Clocal[" << ccj <<"][" << cci << "] = " << Clocal[cci+ccj*n] 
-               << " col index: " << cci+ccj*n << std::endl;
-            }
-         }
+         // for(int cci = i; cci< i + block_size; cci++){
+         //    for(int ccj = j; ccj< j + block_size; ccj++){
+         //       std::cout << "Clocal[" << ccj <<"][" << cci << "] = " << Clocal[cci+ccj*n] 
+         //       << " col index: " << cci+ccj*n << std::endl;
+         //    }
+         // }
          for(int k=0; k<n; k+=block_size){ // same as i
             //copy A(in fact B)
             for(int ia = i; ia < i + block_size; ia++){
@@ -50,12 +50,12 @@ void square_dgemm_blocked(int n, int block_size, double* A, double* B, double* C
                   //       << " i[" << ka << "], j[" << ia << "]" << std::endl;
                }
             }
-            for(int cai = i; cai< i + block_size; cai++){
-               for(int caj = k; caj< k + block_size; caj++){
-                  std::cout << "Alocal[" << caj <<"][" << cai << "] = " << Alocal[cai+caj*n] 
-                  << " col index: " << cai+caj*n << std::endl;
-               }
-            }
+            // for(int cai = i; cai< i + block_size; cai++){
+            //    for(int caj = k; caj< k + block_size; caj++){
+            //       std::cout << "Alocal[" << caj <<"][" << cai << "] = " << Alocal[cai+caj*n] 
+            //       << " col index: " << cai+caj*n << std::endl;
+            //    }
+            // }
             //copy B(in fact A)
             for(int kb = k; kb < k + block_size; kb++){
                for(int jb = j; jb < j + block_size; jb++){
