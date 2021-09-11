@@ -18,12 +18,14 @@ void square_dgemm_blocked(int n, int block_size, double* A, double* B, double* C
    // i from 0 to n, increment by block_size, so n/block_size = 64/2 = 32 times of iteration
    for (int i=0; i<n; i+=block_size){
       for (int j=0; j<n; j+=block_size){ //same as i
-         //copy C
+         //original C, column
          for(int ci = 0; ci<n; ci++){
             for(int cj = 0; cj<n; cj++){
-               std::cout << "C[" << cj <<"][" << ci << "] = " << C[ci+cj*n] << std::endl;
+               std::cout << "C[" << cj <<"][" << ci << "] = " << C[ci+cj*n] 
+               << "col index: " << ci+cj*n << std::endl;
             }
          }
+         //copy C
          for(int ic = i; ic < i + block_size; ic++){
             memcpy(&Clocal[ic], &C[ic], sizeof(double));
             for(int jc = j; jc < j + block_size; jc++){
