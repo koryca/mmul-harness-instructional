@@ -65,11 +65,11 @@ void square_dgemm_blocked(int n, int block_size, double* A, double* B, double* C
          }
          //write back to C
          for(int iic = i; iic < i + block_size; iic++){
-            // for(int jjc = j; jjc < j + block_size; jjc++){
-            memcpy(&C[iic + j * n], &Clocal[iic + j * n], sizeof(double)*block_size);
+            for(int jjc = j; jjc < j + block_size; jjc++){
+               memcpy(&C[iic + jjc * block_size], &Clocal[iic + jjc * block_size], sizeof(double)*block_size*block_size);
             // std::cout << "Clocal at write: " << Clocal[iic + j * block_size] 
             //           << "C at write: " << C[iic + j * block_size] << std::endl;      
-            // }
+            }
          }
       }
    }
