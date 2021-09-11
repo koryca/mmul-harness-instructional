@@ -14,6 +14,12 @@ void square_dgemm_blocked(int n, int block_size, double* A, double* B, double* C
    double * Blocal = Alocal + n * n;
    double * Clocal = Blocal + n * n;
    
+   for (int i = 0; i < n; ++i){
+      Alocal[i] = 0.0;
+      Blocal[i] = 0.0;
+      Clocal[i] = 0.0;
+   }
+        
    // test with block_size 2 BxB=2x2 MM size 64x64
    // i from 0 to n, increment by block_size, so n/block_size = 64/2 = 32 times of iteration
    for (int i=0; i<n; i+=block_size){
