@@ -69,9 +69,7 @@ void square_dgemm_blocked(int n, int block_size, double* A, double* B, double* C
                         << " += A[" << jj << "][" << kk <<"]: " << Alocal[ii + kk * n] 
                         << " * B[" << kk << "][" << ii <<"]: " << Blocal[kk + jj * n] << std::endl;
                      Clocal[ii + jj * n] += Alocal[ii + kk * n] * Blocal[kk + jj * n];
-                     std::cout << "output: C[" << jj << "][" << ii <<"]: " << Clocal[ii + jj * n] 
-                        << " += A[" << jj << "][" << kk <<"]: " << Alocal[ii + kk * n] 
-                        << " * B[" << kk << "][" << ii <<"]: " << Blocal[kk + jj * n] << std::endl;
+                     std::cout << "output: C[" << jj << "][" << ii <<"]: " << Clocal[ii + jj * n] << std::endl;
                   }
                }
             }
