@@ -112,11 +112,7 @@ std::cout << " Elapsed time for block size " << b << " is : " << elapsed.count()
 std::cout << " Elapsed time is : " << elapsed.count() << " " << std::endl;
 #endif
 
-std::chrono::time_point<std::chrono::high_resolution_clock> start_time_r = std::chrono::high_resolution_clock::now();
            reference_dgemm(n, 1.0 , Acopy, Bcopy, Ccopy);
-std::chrono::time_point<std::chrono::high_resolution_clock> end_time_r = std::chrono::high_resolution_clock::now();
-std::chrono::duration<double> elapsed_r = end_time_r - start_time_r;
-std::cout << " Elapsed time for reference blas is : " << elapsed_r.count() << " " << std::endl;
 
            // compare your C with that computed by BLAS
            if (check_accuracy(Ccopy, C, n*n) == false)
