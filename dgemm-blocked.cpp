@@ -50,9 +50,9 @@ void square_dgemm_blocked(int n, int block_size, double* A, double* B, double* C
                   for(int kk=k; kk<k+block_size; kk++){ //same as kk
                       // reference from basic : C[i + j * n] += A[i + k * n] * B[k + j * n];
                      Clocal[ii + jj * block_size] += Alocal[ii + kk * block_size] * Blocal[kk + jj * block_size];
-                     std::cout << "C[" << ii << "][" << jj <<"]: " << Clocal[ii + jj * block_size] 
-                        << " A[" << ii << "][" << kk <<"]: " << Alocal[ii + kk * block_size] 
-                        << " B[" << kk << "][" << jj <<"]: " << Clocal[ii + jj * block_size] << std::endl;
+                     std::cout << "C[" << ii << "][" << jj * block_size <<"]: " << Clocal[ii + jj * block_size] 
+                        << " A[" << ii << "][" << kk * block_size <<"]: " << Alocal[ii + kk * block_size] 
+                        << " B[" << kk << "][" << jj * block_size <<"]: " << Clocal[ii + jj * block_size] << std::endl;
                   }
                }
             }
