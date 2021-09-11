@@ -44,9 +44,9 @@ void square_dgemm_blocked(int n, int block_size, double* A, double* B, double* C
                   //       << " i[" << ka << "], j[" << ia << "]" << std::endl;
                }
             }
-            for(int cai = 0; cai<block_size; cai++){
-               for(int caj = 0; caj<block_size; caj++){
-                  std::cout << "A[" << caj <<"][" << cai << "] = " << A[cai+caj*block_size] 
+            for(int cai = i; cai< i + block_size; cai++){
+               for(int caj = k; caj< k + block_size; caj++){
+                  std::cout << "A[" << caj <<"][" << cai << "] = " << A[cai+caj*n] 
                   << " col index: " << cai+caj*n << std::endl;
                }
             }
