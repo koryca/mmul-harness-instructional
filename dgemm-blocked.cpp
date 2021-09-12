@@ -8,6 +8,7 @@ const char* dgemm_desc = "Blocked dgemm.";
  * where A, B, and C are n-by-n matrices stored in column-major format.
  * On exit, A and B maintain their input values. */
 void copy_to_block(double *, int, int, int, double *, int);
+void copy_from_block(double *, int, int, int, double *, int);
 void square_dgemm(int, double*, double*, double*);
 
 void square_dgemm_blocked(int n, int block_size, double* A, double* B, double* C) 
