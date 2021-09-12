@@ -107,7 +107,7 @@ void copy_from_block(double *src_block, int n, int ioffset, int joffset, double 
 {
     int src_offset = 0;
     int dst_offset = joffset*n + ioffset;
-    for (int i=0;i<block_size;i++, src_offset+=n,dst_offset+=block_size)
+    for (int i=0;i<block_size;i++, src_offset+=block_size,dst_offset+=n)
          memcpy(dst_matrix+dst_offset, src_block+src_offset, sizeof(double)*block_size);
 }
 
