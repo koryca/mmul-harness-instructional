@@ -50,7 +50,7 @@ void square_dgemm_blocked(int n, int block_size, double* A, double* B, double* C
                // }
             }  
             for (int ii=i; ii<i+block_size-1; ii++){
-               for (int jj=j; jj<j+block_size-1; jj++){ 
+               for (int jj=j; jj<j+block_size; jj++){ 
                   double temp = 0.0;
                   for(int kk=k; kk<k+block_size; kk++){ 
                      temp += Alocal[ii + kk * block_size] * Blocal[kk + jj * block_size];
