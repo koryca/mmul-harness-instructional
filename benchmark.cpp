@@ -55,7 +55,7 @@ int main(int argc, char** argv)
 {
     std::cout << "Description:\t" << dgemm_desc << std::endl << std::endl;
 
-    // std::cout << std::fixed << std::setprecision(2);
+    std::cout << std::fixed << std::setprecision(6);
 
     std::vector<int> test_sizes{64, 128, 256, 512, 1024};
     std::vector<int> block_sizes{2, 16, 32, 64};
@@ -110,7 +110,7 @@ std::chrono::duration<double> elapsed = end_time - start_time;
 #ifdef BLOCKED
 std::cout << " Elapsed time for block size " << b << " is : " << elapsed.count() << " " << std::endl;
 #else
-std::cout << setprecision(6) << " Elapsed time is : " << elapsed.count() << " " << std::endl;
+std::cout << " Elapsed time is : " << elapsed.count() << " " << std::endl;
 #endif
 
            reference_dgemm(n, 1.0 , Acopy, Bcopy, Ccopy);
