@@ -49,8 +49,8 @@ void square_dgemm_blocked(int n, int block_size, double* A, double* B, double* C
                       << " B[" << kb << "][" << j << "]"<< std::endl;
                // }
             }  
-            for (int ii=i; ii<i+block_size; ii++){
-               for (int jj=j; jj<j+block_size; jj++){ 
+            for (int ii=i; ii<i+block_size-1; ii++){
+               for (int jj=j; jj<j+block_size-1; jj++){ 
                   double temp = 0.0;
                   for(int kk=k; kk<k+block_size; kk++){ 
                      temp += Alocal[ii + kk * block_size] * Blocal[kk + jj * block_size];
