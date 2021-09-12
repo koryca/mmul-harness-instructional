@@ -24,7 +24,7 @@ void square_dgemm_blocked(int n, int block_size, double* A, double* B, double* C
          //copy C
          for(int ic = i; ic < i + block_size; ic++){
          // for(int jc = j; jc < j + block_size; jc++){
-               memcpy(&Clocal[ic * block_size + j * block_size], &C[ic + j * n], sizeof(double)*block_size);
+               memcpy(&Clocal[ic * block_size + j * block_size], &C[ic * n + j * n], sizeof(double)*block_size);
                // std::cout << "Clocal at copy: " << Clocal[ic + j * block_size] << " " << Clocal[ic + j * block_size + 1]
                //          << " C at copy: " << C[ic * n + j] << " " << C[ic * n + j + 1]
                //          << " C[" << ic << "][" << j << "]"<< std::endl;
@@ -36,7 +36,7 @@ void square_dgemm_blocked(int n, int block_size, double* A, double* B, double* C
             //copy A
             for(int ia = i; ia < i + block_size; ia++){
             // for(int ka = k; ka < k + block_size; ka++){
-               memcpy(&Alocal[ia * block_size + k * block_size], &A[ia + k * n], sizeof(double)*block_size);
+               memcpy(&Alocal[ia * block_size + k * block_size], &A[ia * n + k * n], sizeof(double)*block_size);
                // std::cout << "Alocal at copy: " << Alocal[ia + k * block_size] << " " << Alocal[ia + k * block_size + 1]
                //        << " A at copy: " << A[ia * n + k] << " " << A[ia * n + k + 1]
                //        << " A[" << ia << "][" << k << "]" << std::endl;
@@ -47,7 +47,7 @@ void square_dgemm_blocked(int n, int block_size, double* A, double* B, double* C
             //copy B
             for(int kb = k; kb < k + block_size; kb++){
             // for(int jb = j; jb < j + block_size; jb++){
-               memcpy(&Blocal[kb * block_size + j * block_size], &B[kb + j* n], sizeof(double)*block_size);
+               memcpy(&Blocal[kb * block_size + j * block_size], &B[kb * n + j * n], sizeof(double)*block_size);
                // std::cout << "Blocal at copy: " << Blocal[kb + j * block_size] << " " << Blocal[kb + j * block_size + 1]
                //        << " B at copy: " << B[kb * n + j] << " " << B[kb * n + j + 1]
                //        << " B[" << kb << "][" << j << "]"<< std::endl;
