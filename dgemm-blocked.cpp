@@ -38,7 +38,7 @@ void square_dgemm_blocked(int n, int block_size, double* A, double* B, double* C
                // std::cout << "Alocal at copy: " << Alocal[ia + k * block_size] << " " << Alocal[ia + k * block_size + 1]
                //        << " A at copy: " << A[ia * n + k] << " " << A[ia * n + k + 1]
                //        << " A[" << ia << "][" << k << "]" << std::endl;
-               std::cout << Alocal[ia + k * block_size] << " " << ia + k * block_size
+               std::cout << Alocal[ia + k * block_size] << " " << ia + k * block_size << " "
                         << Alocal[ia + k * block_size + 1] << " " << ia + k * block_size + 1 << std::endl;
                // }
             }
@@ -49,7 +49,7 @@ void square_dgemm_blocked(int n, int block_size, double* A, double* B, double* C
                // std::cout << "Blocal at copy: " << Blocal[kb + j * block_size] << " " << Blocal[kb + j * block_size + 1]
                //        << " B at copy: " << B[kb * n + j] << " " << B[kb * n + j + 1]
                //        << " B[" << kb << "][" << j << "]"<< std::endl;
-               std::cout << Blocal[kb + j * block_size] << " " << kb + j * block_size
+               std::cout << Blocal[kb + j * block_size] << " " << kb + j * block_size << " "
                         << Blocal[kb + j * block_size + 1] << " " << kb + j * block_size + 1 << std::endl;
                // }
             }  
