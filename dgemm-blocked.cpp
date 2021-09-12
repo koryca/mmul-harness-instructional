@@ -88,7 +88,7 @@ void square_dgemm_blocked(int n, int block_size, double* A, double* B, double* C
             //           << "C at write: " << C[iic + j * block_size] << std::endl;      
             // }
             // copy from Clocal back to  C[i*bs, j*bs]
-            copy_to_block(Clocal, n, i*block_size, j*block_size, C, block_size);
+            copy_from_block(Clocal, n, i*block_size, j*block_size, C, block_size);
          }
       }
    }
@@ -100,6 +100,14 @@ void copy_to_block(double *src_matrix, int n, int ioffset, int joffset, double *
     int dst_offset = 0;
     for (int i=0;i<block_size;i++, src_offset+=n,dst_offset+=block_size)
          memcpy(dst_block+dst_offset, src_matrix+src_offset, sizeof(double)*block_size);
+}
+
+void copy_from_block(double *src_block, int n, int ioffset, int joffset, double *dst_matrix, int block_size)
+{
+    int src_offset = 0;
+    int dst_offset = joffset*n + ioffset;
+    for (int i=0;i<block_size;i++, src_offset+=n,dst_offset+=block_size)
+         memcpy(dst_matrix+dst_offset, src_block+src_offset, sizeof(double)*block_size);
 }
 
 void square_dgemm(int n, double* A, double* B, double* C) 
