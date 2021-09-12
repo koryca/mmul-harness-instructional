@@ -116,10 +116,12 @@ void square_dgemm(int n, double* A, double* B, double* C)
    // This implementation is the triply nested loop as discussed in class
    for (int i=0; i<n; i++){
       for (int j=0; j<n; j++){
+         double temp = 0.0;
          for(int k=0; k<n; k++){
             // C[i,j] += A[i,k] * B[k,j]
-            C[i + j * n] += A[i + k * n] * B[k + j * n];
+             temp += A[i + k * n] * B[k + j * n];
          }
+         C[i + j * n] += temp;
       }
    }
 }
