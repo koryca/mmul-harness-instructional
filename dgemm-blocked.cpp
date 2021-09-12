@@ -24,12 +24,12 @@ void square_dgemm_blocked(int n, int block_size, double* A, double* B, double* C
          //copy C
          // for(int ic = i; ic < i + block_size; ic++){
          for(int jc = j; jc < j + block_size; jc++){
-               memcpy(&Clocal[i + j * block_size], &C[i + j * n], sizeof(double)*block_size);
+               memcpy(&Clocal[i + jc * block_size], &C[i + jc * n], sizeof(double)*block_size);
                // std::cout << "Clocal at copy: " << Clocal[ic + j * block_size] << " " << Clocal[ic + j * block_size + 1]
                //          << " C at copy: " << C[ic * n + j] << " " << C[ic * n + j + 1]
                //          << " C[" << ic << "][" << j << "]"<< std::endl;
-               std::cout << "C: " << Clocal[i + j * block_size] << " " << i + j * block_size << " "
-                        << Clocal[i + j * block_size + 1] << " " << i + j * block_size + 1 << std::endl;
+               std::cout << "C: " << Clocal[i + jc * block_size] << " " << i + jc * block_size << " "
+                        << Clocal[i + jc * block_size + 1] << " " << i + jc * block_size + 1 << std::endl;
             // }
          }
          for(int k=0; k<n; k+=block_size){ 
@@ -70,9 +70,9 @@ void square_dgemm_blocked(int n, int block_size, double* A, double* B, double* C
             }
          }
          //write back to C
-         for(int iic = i; iic < i + block_size; iic++){
-         // for(int jjc = j; jjc < j + block_size; jjc++){
-               memcpy(&C[iic + j * n], &Clocal[iic + j * n], sizeof(double)*block_size);
+         // for(int iic = i; iic < i + block_size; iic++){
+         for(int jjc = j; jjc < j + block_size; jjc++){
+               memcpy(&C[i + jjc * n], &Clocal[i + jjc * block_size], sizeof(double)*block_size);
             // std::cout << "Clocal at write: " << Clocal[iic + j * block_size] 
             //           << "C at write: " << C[iic + j * block_size] << std::endl;      
             // }
