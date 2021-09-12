@@ -26,15 +26,15 @@ void square_dgemm_blocked(int n, int block_size, double* A, double* B, double* C
       for (int j=0; j<nblocks; j++){ 
          //copy C
          // for(int ic = i; ic < i + block_size; ic++){
-         for(int jc = j; jc < j + block_size; jc++){
-               memcpy(&Clocal[i + jc * block_size], &C[i + jc * n], sizeof(double)*block_size);
+         // for(int jc = j; jc < j + block_size; jc++){
+         //       memcpy(&Clocal[i + jc * block_size], &C[i + jc * n], sizeof(double)*block_size);
                // std::cout << "Clocal at copy: " << Clocal[ic + j * block_size] << " " << Clocal[ic + j * block_size + 1]
                //          << " C at copy: " << C[ic * n + j] << " " << C[ic * n + j + 1]
                //          << " C[" << ic << "][" << j << "]"<< std::endl;
                // std::cout << "C: " << Clocal[i + jc * block_size] << " " << i + jc * block_size << " "
                //          << Clocal[i + jc * block_size + 1] << " " << i + jc * block_size + 1 << std::endl;
             // }
-         }
+         // }
          //copy from C[i*bs, j*bs] into Clocal
          //copy_to_block(double *src_matrix, int n, int ioffset, int joffset, double *dst_block, int block_size)
          copy_to_block(C, n, i*block_size, j*block_size, Clocal, block_size);
