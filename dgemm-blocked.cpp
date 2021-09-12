@@ -34,32 +34,32 @@ void square_dgemm_blocked(int n, int block_size, double* A, double* B, double* C
          }
          for(int k=0; k<n; k+=block_size){ 
             //copy A
-            for(int ia = i; ia < i + block_size; ia++){
-            // for(int ka = k; ka < k + block_size; ka++){
-               memcpy(&Alocal[ia + k * block_size], &A[ia + k * n], sizeof(double)*block_size);
+            // for(int ia = i; ia < i + block_size; ia++){
+            for(int ka = k; ka < k + block_size; ka++){
+               memcpy(&Alocal[i + ka * block_size], &A[i + ka * n], sizeof(double)*block_size);
                // std::cout << "Alocal at copy: " << Alocal[ia + k * block_size] << " " << Alocal[ia + k * block_size + 1]
                //        << " A at copy: " << A[ia * n + k] << " " << A[ia * n + k + 1]
                //        << " A[" << ia << "][" << k << "]" << std::endl;
-               std::cout << "A: " << Alocal[ia + k * block_size] << " " << ia + k * block_size << " "
-                        << Alocal[ia + k * block_size + 1] << " " << ia + k * block_size + 1 << std::endl;
+               std::cout << "A: " << Alocal[i + ka * block_size] << " " << i + ka * block_size << " "
+                        << Alocal[i + ka * block_size + 1] << " " << i + ka * block_size + 1 << std::endl;
                // }
             }
             //copy B
-            for(int kb = k; kb < k + block_size; kb++){
-            // for(int jb = j; jb < j + block_size; jb++){
-               memcpy(&Blocal[kb * block_size + j * block_size], &B[kb * n + j * n], sizeof(double)*block_size);
+            // for(int kb = k; kb < k + block_size; kb++){
+            for(int jb = j; jb < j + block_size; jb++){
+               memcpy(&Blocal[k + jb * block_size], &B[k + jb * n], sizeof(double)*block_size);
                // std::cout << "Blocal at copy: " << Blocal[kb + j * block_size] << " " << Blocal[kb + j * block_size + 1]
                //        << " B at copy: " << B[kb * n + j] << " " << B[kb * n + j + 1]
                //        << " B[" << kb << "][" << j << "]"<< std::endl;
-               std::cout <<"B: " << Blocal[kb * block_size + j * block_size] << " " << kb * block_size + j * block_size << " "
-                        << Blocal[kb * block_size + j * block_size + 1] << " " << kb * block_size + j * block_size + 1 << std::endl;
+               std::cout <<"B: " << Blocal[k + jb * block_size] << " " << k + jb * block_size << " "
+                        << Blocal[k + jb * block_size + 1] << " " << k + jb * block_size + 1 << std::endl;
                // }
             }  
             for (int ii=i; ii<i+block_size; ii++){
                for (int jj=j; jj<j+block_size; jj++){ 
                   double temp = 0.0;
                   for(int kk=k; kk<k+block_size; kk++){ 
-                     temp += Alocal[ii + kk * block_size] * Blocal[kk + jj * block_size];
+                     temp += Alocal[ii * block_size + kk ] * Blocal[kk * block_size + jj];
                      std::cout << "A[" << ii << "][" << kk << "] " << Alocal[ii + kk * block_size] << " " << ii + kk * block_size
                               << " B[" << kk << "][" << jj << "] " << Blocal[kk + jj * block_size]<< " " << kk + jj * block_size
                               << " ->C[" << ii << "][" << jj << "] += " << Alocal[ii + kk * block_size] 
